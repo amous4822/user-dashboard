@@ -1,5 +1,7 @@
 const express = require("express");
 const auth = require("../middleware/auth");
+const validation = require("../middleware/userValidator");
+const alertValidation = require("../Validations/alertValidation");
 const Alerts = require("../models/Alerts");
 const router = express.Router();
 
@@ -8,7 +10,7 @@ const router = express.Router();
  * @desc    add an alert entry
  * @access  private  */
 
-router.post("/", auth, async (res, req) => {
+router.post("/", [auth, validation(alertValidation)], async (res, req) => {
   try {
     const { name, email, criteria, value, days, phone } = req.body;
     const alert = new Alerts({
