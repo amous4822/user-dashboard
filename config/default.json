@@ -1,0 +1,4 @@
+{
+  "uri": "mongodb+srv://admin:databAdmin%23123@cluster0.vmom5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "jwtsecret": "secretkey"
+}

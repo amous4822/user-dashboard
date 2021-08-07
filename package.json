@@ -1,0 +1,31 @@
+{
+  "name": "user-dashboard",
+  "version": "1.0.0",
+  "description": "User dashboard to view charts and create alerts ",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amous4822/user-dashboard.git"
+  },
+  "author": "Albin Joseph",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amous4822/user-dashboard/issues"
+  },
+  "homepage": "https://github.com/amous4822/user-dashboard#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.5",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.12"
+  }
+}
