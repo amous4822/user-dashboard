@@ -1,0 +1,9 @@
+.main {
+  flex: 4;
+  /* background-color: w; */
+}
+
+.alertSection{
+  display: flex;
+  margin: 20px;
+}
