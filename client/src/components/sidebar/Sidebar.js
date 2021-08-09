@@ -24,7 +24,7 @@ export default function Sidebar() {
                 Dashboard
               </li>
 
-              <div className={showE3Apps? "sidebarSubMenuStyle" : null}>
+              <div className={showE3Apps ? "sidebarSubMenuStyle" : null}>
                 <li
                   className="sidebarItem"
                   onClick={() => {
@@ -32,7 +32,7 @@ export default function Sidebar() {
                   }}
                 >
                   <VpnKeyIcon className="sidebarIcon" />
-                  E3 Apps
+                  <span style={{"width":"70%"}}>E3 Apps</span>
                   {showE3Apps ? (
                     <ArrowDropUpIcon className="sidebarDropDown" />
                   ) : (
@@ -44,17 +44,17 @@ export default function Sidebar() {
 
               <li className="sidebarItem">
                 <EqualizerIcon className="sidebarIcon" />
-                Insights
+                <span style={{"width":"70%"}}>Insights</span>
                 <ArrowDropDownIcon className="sidebarDropDown" />
               </li>
               <li className="sidebarItem">
                 <StorageIcon className="sidebarIcon" />
-                Demand Response
+                <span style={{"width":"70%"}}>Demand Response</span>
                 <ArrowDropDownIcon className="sidebarDropDown" />
               </li>
               <li className="sidebarItem">
                 <RestoreIcon className="sidebarIcon" />
-                Version History
+                <span style={{"width":"70%"}}>Version History</span>
                 <ArrowDropDownIcon className="sidebarDropDown" />
               </li>
             </ul>

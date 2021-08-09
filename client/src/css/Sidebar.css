@@ -1,6 +1,6 @@
 .sidebar {
   flex: 1;
-  height: calc(100vh - 50px);
+  height: auto;
   overflow: hidden;
   background-color: #0f123f;
   position: sticky;
@@ -33,6 +33,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+
   border-radius: 10px;
 }
 
@@ -59,4 +60,8 @@
 
 .sidebarIcon {
   margin-right: 20px;
+}
+
+.sidebarDropDown {
+  justify-content: flex-end;
 }

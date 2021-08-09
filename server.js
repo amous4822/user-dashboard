@@ -1,6 +1,7 @@
 const express = require("express");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
+const alert = require("./routes/alerts");
 const connctDB = require("./config/db");
 
 const app = express();
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/api/user", users);
 app.use("/api/auth", auth);
+app.use("/api/alert", alert);
 
 app.get("/", (req, res) => {
   res.send("server started");

@@ -22,7 +22,7 @@ const alertSchema = mongoose.Schema({
     required: true,
   },
   days: {
-    type: Array,
+    type: String,
     required: true,
   },
   phone: {

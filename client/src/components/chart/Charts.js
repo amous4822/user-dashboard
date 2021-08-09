@@ -1,7 +1,5 @@
 import "../../css/Chart.css";
 import ReactApexChart from "react-apexcharts";
-
-
 import React from "react";
 
 export default function Charts() {

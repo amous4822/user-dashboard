@@ -10,8 +10,9 @@ const router = express.Router();
  * @desc    add an alert entry
  * @access  private  */
 
-router.post("/", [auth, validation(alertValidation)], async (res, req) => {
+router.post("/", [auth, validation(alertValidation)], async (req, res) => {
   try {
+
     const { name, email, criteria, value, days, phone } = req.body;
     const alert = new Alerts({
       user: req.user.id,
@@ -26,7 +27,7 @@ router.post("/", [auth, validation(alertValidation)], async (res, req) => {
     const result = await alert.save();
     res.send(result);
   } catch (err) {
-    console.error(error);
+    console.error(err);
     res.status(500).send("server error");
   }
 });
