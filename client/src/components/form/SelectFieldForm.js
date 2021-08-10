@@ -26,7 +26,7 @@ const SelectFieldForm = ({ name, options, ...otherProps }) => {
   }
 
   return (
-    <TextField {...configSelect} defaultValue="">
+    <TextField {...configSelect} >
       {Object.keys(options).map((item, pos) => {
         return (
           <MenuItem key={pos} value={item}>

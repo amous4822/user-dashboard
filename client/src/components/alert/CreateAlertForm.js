@@ -56,6 +56,7 @@ const useStyles = makeStyles({
   root: {
     marginBottom: "5px",
     color: "grey",
+    fontSize: "0.8rem",
   },
 });
 
@@ -82,13 +83,16 @@ export default function CreateAlertForm() {
           <Form id="form">
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextFieldForm name="name" size="small" label="Name" />
+                <TextFieldForm
+                  name="name"
+                  size="small"
+                  label={<span style={{ fontSize: "0.8rem" }}>Name</span>}
+                />
               </Grid>
 
               <Grid item xs={12}>
                 <Grid className={classes.root}>Criteria</Grid>
                 <RadioFieldGroup
-                
                   row
                   name="criteria2"
                   options={optionsCriteria}
@@ -96,12 +100,15 @@ export default function CreateAlertForm() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextFieldForm name="value" size="small" label="Value" />
+                <TextFieldForm
+                  name="value"
+                  size="small"
+                  label={<span style={{ fontSize: "0.8rem" }}>Value</span>}
+                />
               </Grid>
               <Grid item xs={12}>
                 <SelectFieldForm
                   name="days"
-                  label="Days"
                   options={optionsDropdown}
                   size="small"
                 />
@@ -110,19 +117,28 @@ export default function CreateAlertForm() {
                 <div className={classes.root}>Criteria</div>
                 <SelectFieldForm
                   name="criteria1"
-                  label="Criteria1"
                   options={optionsCriteria2}
                   size="small"
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextFieldForm name="email" size="small" label="Email" />
+                <TextFieldForm
+                  name="email"
+                  size="small"
+                  label={<span style={{ fontSize: "0.8rem" }}>Email</span>}
+                />
               </Grid>
               <Grid item xs={12}>
-                <TextFieldForm name="phone" size="small" label="Phone" />
+                <TextFieldForm
+                  name="phone"
+                  size="small"
+                  label={<span style={{ fontSize: "0.8rem" }}>Phone</span>}
+                />
               </Grid>
               <Grid item xs={6}>
-                <SubmitButton>Submit Form</SubmitButton>
+                <SubmitButton>
+                  <span style={{ fontSize: "0.8rem" }}>submit</span>
+                </SubmitButton>
               </Grid>
             </Grid>
           </Form>

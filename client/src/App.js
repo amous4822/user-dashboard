@@ -1,7 +1,5 @@
-import Sidebar from "./components/sidebar/Sidebar";
 import "./css/App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/home/Home";
 import Main from "./pages/dashboard/Main";
 import AlertState from "./context/alerts/AlertState";
 import Register from "./components/auth/Register";

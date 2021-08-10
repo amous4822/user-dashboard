@@ -10,7 +10,6 @@ import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
 import AlertContext from "../../context/alerts/alertContext";
-
 import DeleteIcon from "@material-ui/icons/Delete";
 
 function descendingComparator(a, b, orderBy) {
@@ -59,6 +58,32 @@ const headCells = [
   { id: "action", numeric: false, disablePadding: false, label: "Actions" },
 ];
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: "0px",
+    margin: "0px",
+    fontSize: "0.8rem",
+  },
+  paper: {
+    width: "100%",
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 250,
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: "rect(0 0 0 0)",
+    height: 1,
+    margin: -1,
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    top: 20,
+    width: 1,
+  },
+}));
+
 function EnhancedTableHead(props) {
   const { classes, order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
@@ -70,6 +95,7 @@ function EnhancedTableHead(props) {
       <TableRow>
         {headCells.map((headCell) => (
           <TableCell
+            className={classes.root}
             key={headCell.id}
             align="center"
             sortDirection={orderBy === headCell.id ? order : false}
@@ -93,32 +119,6 @@ function EnhancedTableHead(props) {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-
-    fontSize: "0.8rem",
-  },
-  paper: {
-    width: "100%",
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 250,
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: "rect(0 0 0 0)",
-    height: 1,
-    margin: -1,
-    overflow: "hidden",
-    padding: 0,
-    position: "absolute",
-    top: 20,
-    width: 1,
-  },
-}));
-
 export default function EnhancedTable() {
   const alertContext = useContext(AlertContext);
   const { alerts, deleteAlert, getAlert } = alertContext;
@@ -138,7 +138,7 @@ export default function EnhancedTable() {
     setRows(alerts);
   }, [alerts]);
 
-  const handleRequestSort = (event, property) => {
+  const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
@@ -148,7 +148,7 @@ export default function EnhancedTable() {
     deleteAlert(item._id);
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
@@ -157,17 +157,19 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
   return (
-    <div className={classes.root}>
+    <div>
       <Paper className={classes.paper}>
-        <TableContainer>
+        <TableContainer style={{ maxWidth: 650 }}>
           <Table
             aria-labelledby="tableTitle"
             size={"medium"}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
-              classes={classes.root}
+              classes={classes}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
@@ -203,7 +205,6 @@ export default function EnhancedTable() {
                       </TableCell>
                       <TableCell
                         align="center"
-                        className={classes.root}
                         onClick={() => handleClick(row)}
                       >
                         {<DeleteIcon />}
@@ -211,6 +212,11 @@ export default function EnhancedTable() {
                     </TableRow>
                   );
                 })}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
