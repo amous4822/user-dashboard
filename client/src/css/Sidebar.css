@@ -6,6 +6,26 @@
   position: sticky;
 }
 
+.sidebarUsername {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.sidebarAvatar {
+  flex: 1;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 50%;
+}
+.sidebarName {
+  flex: 4;
+  font-size: 17px;
+  color: white;
+  margin: 20px;
+}
+
 .sidebarContainer {
   padding: 10px;
 }

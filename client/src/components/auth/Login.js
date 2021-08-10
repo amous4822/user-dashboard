@@ -11,6 +11,7 @@ import TextFieldForm from "../form/TextFieldForm";
 import Container from "@material-ui/core/Container";
 import "../../css/Register.css";
 import AuthContext from "../../context/auth/authContext";
+import Link from "@material-ui/core/Link";
 
 const initialFormData = {
   email: "",
@@ -44,7 +45,7 @@ export default function Login(props) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push("/peakshavingalert");
+      props.history.push("/");
     }
     if (error) {
       console.log(error);
@@ -62,12 +63,12 @@ export default function Login(props) {
       <div className="register">
         {errorLogin ? (
           <Alert severity="error">
-            <AlertTitle>Registration</AlertTitle>
+            <AlertTitle>Login Error</AlertTitle>
             <strong>{errorLogin}</strong>
           </Alert>
         ) : null}
         <div className={classes.title}>
-          <strong> Sign In</strong>
+          <strong> Log In</strong>
         </div>
 
         <div>
@@ -75,7 +76,8 @@ export default function Login(props) {
             initialValues={{ ...initialFormData }}
             validationSchema={formValidation}
             onSubmit={(values, { resetForm }) => {
-              login(values)
+              console.log(values);
+              login(values);
               resetForm();
             }}
           >
@@ -92,7 +94,14 @@ export default function Login(props) {
                   />
                 </Grid>
               </Grid>
-              <SubmitButton className={classes.submit}>Sign Up</SubmitButton>
+              <SubmitButton className={classes.submit}>Log In</SubmitButton>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href="/register" variant="body2">
+                    Make a new account. Register here
+                  </Link>
+                </Grid>
+              </Grid>
             </Form>
           </Formik>
         </div>

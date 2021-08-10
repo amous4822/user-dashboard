@@ -77,7 +77,7 @@ const AuthState = (props) => {
     };
 
     try {
-      const res = await axios.post("/api/user", formData, config);
+      const res = await axios.post("/api/auth", formData, config);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -93,6 +93,9 @@ const AuthState = (props) => {
   };
 
   //logout
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+  };
 
   //clear error
   const clearError = () => {
@@ -113,6 +116,7 @@ const AuthState = (props) => {
         clearError,
         loadUser,
         login,
+        logout,
       }}
     >
       {props.children}

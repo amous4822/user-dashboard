@@ -1,4 +1,4 @@
-import { ADD_ALERT, DELETE_ALERT } from "../Types";
+import { ADD_ALERT, DELETE_ALERT, ADD_ALERT_ERROR } from "../Types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -11,6 +11,12 @@ export default (state, action) => {
       return {
         ...state,
         alerts: state.alerts.filter((item, i) => i !== action.payload),
+      };
+
+    case ADD_ALERT_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

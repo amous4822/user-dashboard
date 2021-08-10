@@ -111,16 +111,6 @@ function EnhancedTableHead(props) {
   );
 }
 
-// EnhancedTableHead.propTypes = {
-//   classes: PropTypes.object.isRequired,
-//   numSelected: PropTypes.number.isRequired,
-//   onRequestSort: PropTypes.func.isRequired,
-//   onSelectAllClick: PropTypes.func.isRequired,
-//   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-//   orderBy: PropTypes.string.isRequired,
-//   rowCount: PropTypes.number.isRequired,
-// };
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -158,20 +148,22 @@ export default function EnhancedTable() {
 
   useEffect(() => {
     let data = [];
-    alerts.forEach((item) => {
-      data.push(
-        createData(
-          item.name,
-          item.criteria2,
-          item.criteria1,
-          item.value,
-          item.email,
-          item.days
-        )
-      );
-    });
-    setRows(data)
-    console.log(data);
+    if (alerts) {
+      alerts.forEach((item) => {
+        data.push(
+          createData(
+            item.name,
+            item.criteria2,
+            item.criteria1,
+            item.value,
+            item.email,
+            item.days
+          )
+        );
+      });
+      setRows(data);
+      console.log(data);
+    }
   }, [alerts]);
 
   const handleRequestSort = (event, property) => {

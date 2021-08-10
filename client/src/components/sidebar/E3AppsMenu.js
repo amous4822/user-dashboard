@@ -13,7 +13,7 @@ export default function E3AppsMenu() {
   };
   return (
     <Fragment>
-      <Link to="/peakshavingalert">
+      <Link to="/">
         <li className="sidebarItem active" onClick={setActive}>
           <NotificationsActiveIcon className="sidebarIcon" />
           Peak Shaving & Alert

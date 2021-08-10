@@ -13,7 +13,7 @@ const alertSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  criteria: {
+  criteria1: {
     type: String,
     required: true,
   },
@@ -25,8 +25,8 @@ const alertSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  phone: {
-    type: Number,
+  criteria2: {
+    type: String,
     required: true,
   },
 });

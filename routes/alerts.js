@@ -12,15 +12,14 @@ const router = express.Router();
 
 router.post("/", [auth, validation(alertValidation)], async (req, res) => {
   try {
-
-    const { name, email, criteria, value, days, phone } = req.body;
+    const { name, email, criteria1, value, days, criteria2 } = req.body;
     const alert = new Alerts({
       user: req.user.id,
       name,
       email,
-      phone,
+      criteria2,
       days,
-      criteria,
+      criteria1,
       value,
     });
 
@@ -28,7 +27,7 @@ router.post("/", [auth, validation(alertValidation)], async (req, res) => {
     res.send(result);
   } catch (err) {
     console.error(err);
-    res.status(500).send("server error");
+    res.status(500).json({ msg: "server error" });
   }
 });
 
@@ -43,7 +42,7 @@ router.get("/", auth, async (req, res) => {
     res.send(alert);
   } catch (error) {
     console.error(error);
-    res.status(500).send("server error");
+    res.status(500).json({ msg: "server error" });
   }
 });
 
@@ -68,7 +67,7 @@ router.delete("/:id", auth, async (req, res) => {
     res.json({ msg: "Alert removed" });
   } catch (error) {
     console.error(error);
-    res.status(500).send("server error");
+    res.status(500).json({ msg: "server error" });
   }
 });
 

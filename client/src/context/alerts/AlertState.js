@@ -1,7 +1,8 @@
 import React, { useReducer } from "react";
 import alertContext from "./alertContext";
 import alertReducer from "./alertReducer";
-import { ADD_ALERT, DELETE_ALERT } from "../Types";
+import axios from "axios";
+import { ADD_ALERT, DELETE_ALERT, ADD_ALERT_ERROR } from "../Types";
 
 // name: "",
 // criteria1: "",
@@ -11,9 +12,8 @@ import { ADD_ALERT, DELETE_ALERT } from "../Types";
 // email: "",
 // phone: "",
 
-const AlertState = (props) => {
-  const initialState = {
-    alerts: [
+/*
+[
       {
         name: "Test",
         criteria1: "DK1",
@@ -119,14 +119,33 @@ const AlertState = (props) => {
         days: "sun,mon,tue,wed",
       },
     ],
+  }; */
+
+const AlertState = (props) => {
+  const initialState = {
+    alerts: [],
+    error: null,
   };
 
   const [state, dispatch] = useReducer(alertReducer, initialState);
 
   //add alert
-  const addAlert = alert =>{
-    dispatch({type:ADD_ALERT, payload: alert})
-  }
+  const addAlert = async (alert) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.post("/api/alert", alert, config);
+      dispatch({ type: ADD_ALERT, payload: res.data });
+      console.log(res, "respon");
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: ADD_ALERT_ERROR, payload: error });
+    }
+  };
 
   //delete alert
   const deleteAlert = (id) => {
@@ -137,8 +156,9 @@ const AlertState = (props) => {
     <alertContext.Provider
       value={{
         alerts: state.alerts,
+        error: state.error,
         deleteAlert,
-        addAlert
+        addAlert,
       }}
     >
       {props.children}

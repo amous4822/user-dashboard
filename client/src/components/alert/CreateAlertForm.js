@@ -75,6 +75,7 @@ export default function CreateAlertForm() {
           initialValues={{ ...initialFormData }}
           validationSchema={formValidation}
           onSubmit={(values, { resetForm }) => {
+            delete values.phone;
             addAlert(values);
             console.log(values);
             resetForm();
