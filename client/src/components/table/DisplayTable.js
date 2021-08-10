@@ -13,22 +13,6 @@ import AlertContext from "../../context/alerts/alertContext";
 
 import DeleteIcon from "@material-ui/icons/Delete";
 
-function createData(name, criteria2, criteria1, value, email, days) {
-  return { name, criteria2, criteria1, value, email, days };
-}
-
-/*
-const initialFormData = {
-  name: "",
-  criteria1: "",
-  criteria2: "", //less
-  value: "",
-  days: "",
-  email: "",
-  phone: "",
-};
- */
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -55,7 +39,6 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-// name, criteria2, criteria1, value, email, days
 const headCells = [
   {
     id: "name",
@@ -89,7 +72,6 @@ function EnhancedTableHead(props) {
           <TableCell
             key={headCell.id}
             align="center"
-            padding="normal"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -114,13 +96,15 @@ function EnhancedTableHead(props) {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+
+    fontSize: "0.8rem",
   },
   paper: {
     width: "100%",
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 150,
+    minWidth: 250,
   },
   visuallyHidden: {
     border: 0,
@@ -137,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EnhancedTable() {
   const alertContext = useContext(AlertContext);
-  const { alerts, deleteAlert } = alertContext;
+  const { alerts, deleteAlert, getAlert } = alertContext;
 
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
@@ -147,23 +131,11 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
 
   useEffect(() => {
-    let data = [];
-    if (alerts) {
-      alerts.forEach((item) => {
-        data.push(
-          createData(
-            item.name,
-            item.criteria2,
-            item.criteria1,
-            item.value,
-            item.email,
-            item.days
-          )
-        );
-      });
-      setRows(data);
-      console.log(data);
-    }
+    getAlert();
+  }, []);
+
+  useEffect(() => {
+    setRows(alerts);
   }, [alerts]);
 
   const handleRequestSort = (event, property) => {
@@ -172,14 +144,8 @@ export default function EnhancedTable() {
     setOrderBy(property);
   };
 
-  const handleClick = (index) => {
-    console.log("clicked", index, page, rowsPerPage);
-    deleteAlert(index + page * rowsPerPage);
-    // let newRow = rows;
-    // newRow = newRow.filter((item, i) => {
-    //   if (i != index + page * rowsPerPage) return item;
-    // });
-    // setRows(newRow);
+  const handleClick = (item) => {
+    deleteAlert(item._id);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -191,23 +157,17 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  // const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableContainer>
           <Table
-            className={classes.table}
             aria-labelledby="tableTitle"
             size={"medium"}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
-              classes={classes}
+              classes={classes.root}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
@@ -218,33 +178,44 @@ export default function EnhancedTable() {
                 .map((row, index) => {
                   return (
                     <TableRow hover tabIndex={-1} key={index}>
-                      <TableCell align="center" component="th" scope="row">
+                      <TableCell
+                        className={classes.root}
+                        align="center"
+                        component="th"
+                        scope="row"
+                      >
                         {row.name}
                       </TableCell>
-                      <TableCell align="center">{row.criteria2}</TableCell>
-                      <TableCell align="center">{row.criteria1}</TableCell>
-                      <TableCell align="center">{row.value}</TableCell>
-                      <TableCell align="center">{row.email}</TableCell>
-                      <TableCell align="center">{row.days}</TableCell>
+                      <TableCell align="center" className={classes.root}>
+                        {row.criteria2}
+                      </TableCell>
+                      <TableCell align="center" className={classes.root}>
+                        {row.criteria1}
+                      </TableCell>
+                      <TableCell align="center" className={classes.root}>
+                        {row.value}
+                      </TableCell>
+                      <TableCell align="center" className={classes.root}>
+                        {row.email}
+                      </TableCell>
+                      <TableCell align="center" className={classes.root}>
+                        {row.days}
+                      </TableCell>
                       <TableCell
                         align="center"
-                        onClick={() => handleClick(index)}
+                        className={classes.root}
+                        onClick={() => handleClick(row)}
                       >
                         {<DeleteIcon />}
                       </TableCell>
                     </TableRow>
                   );
                 })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[6, 10, 25]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

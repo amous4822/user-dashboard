@@ -10,6 +10,7 @@ export default function Main() {
   const authContext = useContext(AuthContext);
   useEffect(() => {
     authContext.loadUser();
+  
   }, []);
   return (
     <Fragment>

@@ -11,13 +11,18 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import E3AppsMenu from "./E3AppsMenu";
 import AuthContext from "../../context/auth/authContext";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
+import AlertContext from "../../context/alerts/alertContext";
 
 export default function Sidebar() {
   const authContext = useContext(AuthContext);
   const { isAuthenticated, logout, user } = authContext;
 
+  const alertContext = useContext(AlertContext);
+  const { clearAlert } = alertContext;
+
   const onLogout = () => {
     logout();
+    clearAlert();
   };
   const [showE3Apps, setE3Apps] = useState(true);
   return (
@@ -36,9 +41,10 @@ export default function Sidebar() {
 
               <div className="sidebarName">Hi, {user && user.name}</div>
             </div>
-          ) : null} 
+          ) : null}
 
           <ul className="sidebarList">
+            
             <li className="sidebarItem">
               <DashboardOutlinedIcon className="sidebarIcon" />
               Dashboard

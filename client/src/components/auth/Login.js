@@ -12,6 +12,7 @@ import Container from "@material-ui/core/Container";
 import "../../css/Register.css";
 import AuthContext from "../../context/auth/authContext";
 import Link from "@material-ui/core/Link";
+import AlertContext from "../../context/alerts/alertContext";
 
 const initialFormData = {
   email: "",
@@ -43,12 +44,16 @@ export default function Login(props) {
   const { login, error, clearError, isAuthenticated } = authContext;
   const [errorLogin, setErrorLogin] = useState(error);
 
+  const alertContext = useContext(AlertContext);
+  const { getAlert } = alertContext;
+
   useEffect(() => {
     if (isAuthenticated) {
+      
       props.history.push("/");
     }
     if (error) {
-      console.log(error);
+      
       setErrorLogin(error);
       setTimeout(() => {
         clearError();
@@ -76,7 +81,7 @@ export default function Login(props) {
             initialValues={{ ...initialFormData }}
             validationSchema={formValidation}
             onSubmit={(values, { resetForm }) => {
-              console.log(values);
+              
               login(values);
               resetForm();
             }}

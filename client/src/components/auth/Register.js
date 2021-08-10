@@ -60,7 +60,7 @@ export default function Register(props) {
       props.history.push("/");
     }
     if (error) {
-      console.log(error);
+      
       setErrorRegister(error);
       setTimeout(() => {
         clearError();

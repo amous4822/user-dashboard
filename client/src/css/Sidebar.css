@@ -1,7 +1,6 @@
 .sidebar {
   flex: 1;
   height: auto;
-  overflow: hidden;
   background-color: #0f123f;
   position: sticky;
 }

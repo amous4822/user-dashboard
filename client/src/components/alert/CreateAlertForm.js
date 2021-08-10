@@ -18,7 +18,7 @@ const optionsDropdown = {
   fri: "Friday",
   sat: "Saturday",
   sun: "Sunday",
-  evr: "Everyday",
+  everyday: "Everyday",
 };
 
 const initialFormData = {
@@ -75,13 +75,11 @@ export default function CreateAlertForm() {
           initialValues={{ ...initialFormData }}
           validationSchema={formValidation}
           onSubmit={(values, { resetForm }) => {
-            delete values.phone;
             addAlert(values);
-            console.log(values);
             resetForm();
           }}
         >
-          <Form>
+          <Form id="form">
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextFieldForm name="name" size="small" label="Name" />
@@ -90,10 +88,11 @@ export default function CreateAlertForm() {
               <Grid item xs={12}>
                 <Grid className={classes.root}>Criteria</Grid>
                 <RadioFieldGroup
+                
                   row
                   name="criteria2"
                   options={optionsCriteria}
-                  small="size"
+                  size="small"
                 />
               </Grid>
               <Grid item xs={12}>

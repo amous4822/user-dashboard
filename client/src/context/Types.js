@@ -1,6 +1,8 @@
 export const ADD_ALERT = "ADD_ALERT";
 export const DELETE_ALERT = "DELETE_ALERT";
-export const ADD_ALERT_ERROR = "ADD_ALERT_ERROR";
+export const ALERT_ERROR = "ALERT_ERROR";
+export const GET_ALERT = "GET_ALERT";
+export const CLEAR_ALERT = "CLEAR_ALERT";
 
 //auth
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";

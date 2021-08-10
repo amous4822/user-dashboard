@@ -2,7 +2,13 @@ import React, { useReducer } from "react";
 import alertContext from "./alertContext";
 import alertReducer from "./alertReducer";
 import axios from "axios";
-import { ADD_ALERT, DELETE_ALERT, ADD_ALERT_ERROR } from "../Types";
+import {
+  ADD_ALERT,
+  DELETE_ALERT,
+  ALERT_ERROR,
+  GET_ALERT,
+  CLEAR_ALERT,
+} from "../Types";
 
 // name: "",
 // criteria1: "",
@@ -140,16 +146,35 @@ const AlertState = (props) => {
     try {
       const res = await axios.post("/api/alert", alert, config);
       dispatch({ type: ADD_ALERT, payload: res.data });
-      console.log(res, "respon");
     } catch (error) {
-      console.log(error);
-      dispatch({ type: ADD_ALERT_ERROR, payload: error });
+      dispatch({ type: ALERT_ERROR, payload: error });
     }
   };
 
+  //get alerts
+  const getAlert = async () => {
+    try {
+      const res = await axios.get("/api/alert");
+
+      dispatch({ type: GET_ALERT, payload: res.data });
+    } catch (error) {
+      dispatch({ type: ALERT_ERROR, payload: error });
+    }
+  };
+
+  //clear contacts from state
+  const clearAlert = () => {
+    dispatch({ type: CLEAR_ALERT });
+  };
+
   //delete alert
-  const deleteAlert = (id) => {
-    dispatch({ type: DELETE_ALERT, payload: id });
+  const deleteAlert = async (id) => {
+    try {
+      await axios.delete(`/api/alert/${id}`);
+      dispatch({ type: DELETE_ALERT, payload: id });
+    } catch (error) {
+      dispatch({ type: ALERT_ERROR, payload: error });
+    }
   };
 
   return (
@@ -159,6 +184,8 @@ const AlertState = (props) => {
         error: state.error,
         deleteAlert,
         addAlert,
+        getAlert,
+        clearAlert,
       }}
     >
       {props.children}
