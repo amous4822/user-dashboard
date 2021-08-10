@@ -57,7 +57,7 @@ export default function Register(props) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push("/");
+      props.history.push("/main");
     }
     if (error) {
       
@@ -120,7 +120,7 @@ export default function Register(props) {
               <SubmitButton className={classes.submit}>Sign Up</SubmitButton>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="/login" variant="body2">
+                  <Link href="/" variant="body2">
                     Already have an account? Sign in
                   </Link>
                 </Grid>
