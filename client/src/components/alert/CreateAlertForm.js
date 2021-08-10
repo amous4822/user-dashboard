@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../css/CreateAlertForm.css";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextFieldForm from "../form/TextFieldForm";
 import SelectFieldForm from "../form/SelectFieldForm";
 import { RadioFieldGroup } from "../form/RadioFieldGroup";
+import AlertContext from "../../context/alerts/alertContext";
 
 const optionsDropdown = {
   mon: "Monday",
@@ -35,9 +36,9 @@ const optionsCriteria = {
   less: "Less than",
 };
 const optionsCriteria2 = {
-  one: "Dk - 1",
-  two: "Dk - 2",
-  three: "Dk - Gas",
+  DK1: "Dk - 1",
+  DK2: "Dk - 2",
+  DKG: "Dk - Gas",
 };
 
 const formValidation = Yup.object().shape({
@@ -53,12 +54,15 @@ const formValidation = Yup.object().shape({
 
 const useStyles = makeStyles({
   root: {
-    marginBottom: "10px",
+    marginBottom: "5px",
     color: "grey",
   },
 });
 
 export default function CreateAlertForm() {
+  const alertContext = useContext(AlertContext);
+  const { addAlert } = alertContext;
+
   const classes = useStyles();
   return (
     <div className="createAlert">
@@ -70,8 +74,10 @@ export default function CreateAlertForm() {
         <Formik
           initialValues={{ ...initialFormData }}
           validationSchema={formValidation}
-          onSubmit={(values) => {
+          onSubmit={(values, { resetForm }) => {
+            addAlert(values);
             console.log(values);
+            resetForm();
           }}
         >
           <Form>
@@ -84,7 +90,7 @@ export default function CreateAlertForm() {
                 <Grid className={classes.root}>Criteria</Grid>
                 <RadioFieldGroup
                   row
-                  name="criteria1"
+                  name="criteria2"
                   options={optionsCriteria}
                   small="size"
                 />
@@ -103,8 +109,8 @@ export default function CreateAlertForm() {
               <Grid item xs={12}>
                 <div className={classes.root}>Criteria</div>
                 <SelectFieldForm
-                  name="criteria2"
-                  label="Criteria2"
+                  name="criteria1"
+                  label="Criteria1"
                   options={optionsCriteria2}
                   size="small"
                 />
@@ -115,7 +121,9 @@ export default function CreateAlertForm() {
               <Grid item xs={12}>
                 <TextFieldForm name="phone" size="small" label="Phone" />
               </Grid>
-              <SubmitButton>Submit Form</SubmitButton>
+              <Grid item xs={6}>
+                <SubmitButton>Submit Form</SubmitButton>
+              </Grid>
             </Grid>
           </Form>
         </Formik>

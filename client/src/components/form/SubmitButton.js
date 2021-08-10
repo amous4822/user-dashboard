@@ -13,6 +13,7 @@ const SubmitButton = ({
   }
 
   const configButton = {
+    ...otherProps,
     variant: 'contained',
     color: 'primary',
     fullWidth: true,

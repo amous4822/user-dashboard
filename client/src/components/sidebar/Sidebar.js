@@ -11,7 +11,7 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import E3AppsMenu from "./E3AppsMenu";
 
 export default function Sidebar() {
-  const [showE3Apps, setE3Apps] = useState(false);
+  const [showE3Apps, setE3Apps] = useState(true);
   return (
     <div className="sidebar">
       <div className="sidebarContainer">
@@ -32,7 +32,7 @@ export default function Sidebar() {
                   }}
                 >
                   <VpnKeyIcon className="sidebarIcon" />
-                  <span style={{"width":"70%"}}>E3 Apps</span>
+                  <span style={{ width: "70%" }}>E3 Apps</span>
                   {showE3Apps ? (
                     <ArrowDropUpIcon className="sidebarDropDown" />
                   ) : (
@@ -44,17 +44,17 @@ export default function Sidebar() {
 
               <li className="sidebarItem">
                 <EqualizerIcon className="sidebarIcon" />
-                <span style={{"width":"70%"}}>Insights</span>
+                <span style={{ width: "70%" }}>Insights</span>
                 <ArrowDropDownIcon className="sidebarDropDown" />
               </li>
               <li className="sidebarItem">
                 <StorageIcon className="sidebarIcon" />
-                <span style={{"width":"70%"}}>Demand Response</span>
+                <span style={{ width: "70%" }}>Demand Response</span>
                 <ArrowDropDownIcon className="sidebarDropDown" />
               </li>
               <li className="sidebarItem">
                 <RestoreIcon className="sidebarIcon" />
-                <span style={{"width":"70%"}}>Version History</span>
+                <span style={{ width: "70%" }}>Version History</span>
                 <ArrowDropDownIcon className="sidebarDropDown" />
               </li>
             </ul>
