@@ -1,5 +1,6 @@
 .sidebar {
   flex: 1;
+  font-size: 0.8rem;
   height: auto;
   background-color: #0f123f;
   position: sticky;

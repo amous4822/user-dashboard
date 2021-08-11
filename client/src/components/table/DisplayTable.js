@@ -182,7 +182,7 @@ export default function EnhancedTable() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <TableContainer style={{ maxWidth: "40rem" }}>
+        <TableContainer style={{ maxWidth: "40rem",maxHeight: "25rem" }}>
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
