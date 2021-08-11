@@ -85,7 +85,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function EnhancedTableHead(props) {
-  const { classes, order, orderBy, onRequestSort } = props;
+  const {
+    classes,
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -98,6 +106,7 @@ function EnhancedTableHead(props) {
             className={classes.root}
             key={headCell.id}
             align="center"
+            padding="none"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -125,10 +134,11 @@ export default function EnhancedTable() {
 
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("name");
+  const [selected, setSelected] = React.useState([]);
   const [rows, setRows] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   useEffect(() => {
     getAlert();
@@ -138,17 +148,26 @@ export default function EnhancedTable() {
     setRows(alerts);
   }, [alerts]);
 
-  const handleRequestSort = (property) => {
+  const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
+  };
+
+  const handleSelectAllClick = (event) => {
+    if (event.target.checked) {
+      const newSelecteds = rows.map((n) => n.name);
+      setSelected(newSelecteds);
+      return;
+    }
+    setSelected([]);
   };
 
   const handleClick = (item) => {
     deleteAlert(item._id);
   };
 
-  const handleChangePage = (newPage) => {
+  const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
@@ -157,22 +176,27 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
-    <div>
+    <div className={classes.root}>
       <Paper className={classes.paper}>
-        <TableContainer style={{ maxWidth: 650 }}>
+        <TableContainer style={{ maxWidth: "40rem" }}>
           <Table
+            className={classes.table}
             aria-labelledby="tableTitle"
             size={"medium"}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
               classes={classes}
+              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
+              rowCount={rows.length}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
@@ -221,7 +245,7 @@ export default function EnhancedTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[6, 10, 25]}
+          rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
